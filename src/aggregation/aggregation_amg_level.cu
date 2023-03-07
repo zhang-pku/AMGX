@@ -242,11 +242,11 @@ Aggregation_AMG_Level_Base<T_Config>::Aggregation_AMG_Level_Base(AMG_Class *amg,
 {
     m_selector = SelectorFactory<T_Config>::allocate(*(amg->m_cfg), amg->m_cfg_scope);
     m_coarseAGenerator = CoarseAGeneratorFactory<T_Config>::allocate(*(amg->m_cfg), amg->m_cfg_scope);
-    m_matrix_halo_exchange = amg->m_cfg->AMG_Config::getParameter<int>("matrix_halo_exchange", amg->m_cfg_scope);
-    m_print_aggregation_info = amg->m_cfg->AMG_Config::getParameter<int>("print_aggregation_info", amg->m_cfg_scope) != 0;
-    m_error_scaling = amg->m_cfg->AMG_Config::getParameter<int>("error_scaling", amg->m_cfg_scope );
-    reuse_scale = amg->m_cfg->AMG_Config::getParameter<int>("reuse_scale", amg->m_cfg_scope );
-    scaling_smoother_steps = amg->m_cfg->AMG_Config::getParameter<int>("scaling_smoother_steps", amg->m_cfg_scope );
+    m_matrix_halo_exchange = amg->m_cfg->AMG_Config::template getParameter<int>("matrix_halo_exchange", amg->m_cfg_scope);
+    m_print_aggregation_info = amg->m_cfg->AMG_Config::template getParameter<int>("print_aggregation_info", amg->m_cfg_scope) != 0;
+    m_error_scaling = amg->m_cfg->AMG_Config::template getParameter<int>("error_scaling", amg->m_cfg_scope );
+    reuse_scale = amg->m_cfg->AMG_Config::template getParameter<int>("reuse_scale", amg->m_cfg_scope );
+    scaling_smoother_steps = amg->m_cfg->AMG_Config::template getParameter<int>("scaling_smoother_steps", amg->m_cfg_scope );
     scale_counter = 0;
 }
 

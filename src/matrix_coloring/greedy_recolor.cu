@@ -150,7 +150,7 @@ struct neigbor_visitor
                 //}
             }
 
-            neigbor_visitor < COLORING_LEVEL - 1 >::visit<WARP_SIZE, HASHES, DISCARD_COLORED_T>(row_id, base_row_hash, col_id, A_rows, A_cols, A_colors_in, lane_id, seed, is_min, is_max);
+            neigbor_visitor < COLORING_LEVEL - 1 >::template visit<WARP_SIZE, HASHES, DISCARD_COLORED_T>(row_id, base_row_hash, col_id, A_rows, A_cols, A_colors_in, lane_id, seed, is_min, is_max);
         }
     }
 
@@ -210,7 +210,7 @@ void fast_multihash_kernel(
             unsigned long long int is_max = ~0ull;
             int base_row_hash = hash2(row_id, seed);
 #if 1 //COLORING_LEVELR>1
-            neigbor_visitor<COLORING_LEVEL>::visit<WARP_SIZE, HASHES, DISCARD_COLORED_T>(row_id, base_row_hash, row_id, A_rows, A_cols, A_colors_in, lane_id, seed, is_min, is_max);
+            neigbor_visitor<COLORING_LEVEL>::template visit<WARP_SIZE, HASHES, DISCARD_COLORED_T>(row_id, base_row_hash, row_id, A_rows, A_cols, A_colors_in, lane_id, seed, is_min, is_max);
 #else
             int row_begin = A_rows[row_id  ];
             int row_end   = A_rows[row_id + 1];
@@ -240,8 +240,8 @@ void fast_multihash_kernel(
             {
                 using namespace amgx::strided_reduction;
                 amgx::strided_reduction::op_and op;
-                warp_reduce<1, CTA_SIZE, WARP_SIZE>(is_max, op);
-                warp_reduce<1, CTA_SIZE, WARP_SIZE>(is_min, op);
+                amgx::strided_reduction::warp_reduce<1, CTA_SIZE, WARP_SIZE>(is_max, op); //yzhang, add namespace
+                amgx::strided_reduction::warp_reduce<1, CTA_SIZE, WARP_SIZE>(is_min, op); //yzhang, add namespace
             }
 
 #if 1
@@ -641,8 +641,8 @@ void recolor_greedy_kernel(
 #if GETMAX_COLOR == GETMAX_TWOPASS
     using namespace amgx::strided_reduction;
     amgx::strided_reduction::op_max op;
-    warp_reduce<1, CTA_SIZE, 32>(thread_max, op);
-    block_reduce<1, CTA_SIZE, 32, true>(thread_max, maxs_per_block, op);
+    amgx::strided_reduction::warp_reduce<1, CTA_SIZE, 32>(thread_max, op); //added amgx::strided_reduction yzhang
+    amgx::strided_reduction::block_reduce<1, CTA_SIZE, 32, true>(thread_max, maxs_per_block, op); //yzhang add namespace
 #endif
 }
 

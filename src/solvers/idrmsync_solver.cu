@@ -605,7 +605,7 @@ void IDRMSYNC_Solver<TemplateConfig<AMGX_host, t_vecPrec, t_matPrec, t_indPrec> 
 
 
 template <AMGX_VecPrecision t_vecPrec, AMGX_MatPrecision t_matPrec, AMGX_IndPrecision t_indPrec>
-IDRMSYNC_Solver< TemplateConfig<AMGX_device, t_vecPrec, t_matPrec, t_indPrec> >::ValueTypeB
+typename IDRMSYNC_Solver< TemplateConfig<AMGX_device, t_vecPrec, t_matPrec, t_indPrec> >::ValueTypeB
 IDRMSYNC_Solver<TemplateConfig<AMGX_device, t_vecPrec, t_matPrec, t_indPrec> >::dotc_div(VVector &a, VVector &b, int offseta, int offsetb, int size, VVector &denom, int i, int s, ValueTypeB *ratio)
 {
     ValueTypeB dnr;
@@ -626,7 +626,7 @@ IDRMSYNC_Solver<TemplateConfig<AMGX_device, t_vecPrec, t_matPrec, t_indPrec> >::
 
 
 template <AMGX_VecPrecision t_vecPrec, AMGX_MatPrecision t_matPrec, AMGX_IndPrecision t_indPrec>
-IDRMSYNC_Solver< TemplateConfig<AMGX_host, t_vecPrec, t_matPrec, t_indPrec> > ::ValueTypeB
+typename IDRMSYNC_Solver< TemplateConfig<AMGX_host, t_vecPrec, t_matPrec, t_indPrec> > ::ValueTypeB
 IDRMSYNC_Solver<TemplateConfig<AMGX_host, t_vecPrec, t_matPrec, t_indPrec> >::dotc_div(VVector &a, VVector &b, int offseta, int offsetb, int size, VVector &denom, int i, int s, ValueTypeB *ratio)
 {
     ValueTypeB alpha_iter;

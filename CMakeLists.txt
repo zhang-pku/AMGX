@@ -248,7 +248,7 @@ ELSE()
 ENDIF()
 
 # We depend on a specific version of thrust now so include the submodule
-add_subdirectory("thrust")
+# add_subdirectory("thrust")
 find_package(Thrust REQUIRED CONFIG)
 thrust_create_target(Thrust)
 
