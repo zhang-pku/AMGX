@@ -26,9 +26,9 @@
 
 namespace cusp
 {
-    using host_memory = amgx::thrust::host_system_tag;
-    using device_memory = amgx::thrust::device_system_tag;
-    using any_memory = amgx::thrust::any_system_tag;
+    using host_memory = thrust::host_system_tag;
+    using device_memory = thrust::device_system_tag;
+    using any_memory = thrust::any_system_tag;
 
   template<typename T, typename MemorySpace>
   struct default_memory_allocator;

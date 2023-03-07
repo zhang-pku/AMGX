@@ -31,7 +31,7 @@ namespace dispatch
 // Host to Host Path //
 ///////////////////////
 template <typename SourceType, typename DestinationType>
-void convert(const SourceType& src, DestinationType& dst, amgx::thrust::host_system_tag, amgx::thrust::host_system_tag)
+void convert(const SourceType& src, DestinationType& dst, thrust::host_system_tag, thrust::host_system_tag)
 {
     cusp::detail::host::convert(src, dst);
 }
@@ -40,11 +40,11 @@ void convert(const SourceType& src, DestinationType& dst, amgx::thrust::host_sys
 // Host to Device Path //
 /////////////////////////
 template <typename SourceType, typename DestinationType>
-void convert(const SourceType& src, DestinationType& dst, amgx::thrust::host_system_tag, amgx::thrust::device_system_tag)
+void convert(const SourceType& src, DestinationType& dst, thrust::host_system_tag, thrust::device_system_tag)
 {
     // first convert on host, then transfer to device
     typedef typename DestinationType::container DestinationContainerType;
-    typedef typename DestinationContainerType::template rebind<amgx::thrust::host_system_tag>::type HostDestinationContainerType;
+    typedef typename DestinationContainerType::template rebind<thrust::host_system_tag>::type HostDestinationContainerType;
     
     HostDestinationContainerType tmp;
 
@@ -57,11 +57,11 @@ void convert(const SourceType& src, DestinationType& dst, amgx::thrust::host_sys
 // Device to Host Path //
 /////////////////////////
 template <typename SourceType, typename DestinationType>
-void convert(const SourceType& src, DestinationType& dst, amgx::thrust::device_system_tag, amgx::thrust::host_system_tag)
+void convert(const SourceType& src, DestinationType& dst, thrust::device_system_tag, thrust::host_system_tag)
 {
     // first transfer to host, then convert on host
     typedef typename SourceType::container SourceContainerType;
-    typedef typename SourceContainerType::template rebind<amgx::thrust::host_system_tag>::type HostSourceContainerType;
+    typedef typename SourceContainerType::template rebind<thrust::host_system_tag>::type HostSourceContainerType;
     
     HostSourceContainerType tmp(src);
 
@@ -72,7 +72,7 @@ void convert(const SourceType& src, DestinationType& dst, amgx::thrust::device_s
 // Device to Device Path //
 ///////////////////////////
 template <typename SourceType, typename DestinationType>
-void convert(const SourceType& src, DestinationType& dst, amgx::thrust::device_system_tag, amgx::thrust::device_system_tag)
+void convert(const SourceType& src, DestinationType& dst, thrust::device_system_tag, thrust::device_system_tag)
 {
     cusp::detail::device::convert(src, dst);
 }
