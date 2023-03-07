@@ -61,9 +61,9 @@ namespace detail
 
             void swap(matrix_base& base)
             {
-                thrust::swap(num_rows,    base.num_rows);
-                thrust::swap(num_cols,    base.num_cols);
-                thrust::swap(num_entries, base.num_entries);
+                ::thrust::swap(num_rows,    base.num_rows);
+                ::thrust::swap(num_cols,    base.num_cols);
+                ::thrust::swap(num_entries, base.num_entries);
             }
     };
 
