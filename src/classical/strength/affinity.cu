@@ -110,8 +110,8 @@ struct prg
     float operator()(const unsigned int n) const
     {
 #if 1
-        thrust::default_random_engine rng;
-        thrust::uniform_real_distribution<float> dist(a, b);
+        ::thrust::default_random_engine rng;
+        ::thrust::uniform_real_distribution<float> dist(a, b);
         rng.discard(n);
         return dist(rng);
 #else
@@ -126,8 +126,8 @@ template <class Vector>
 void initRandom(Vector &vec, int size)
 {
     vec.resize(size);
-    thrust::counting_iterator<unsigned int> index_sequence_begin(0);
-    thrust::transform(index_sequence_begin,
+    ::thrust::counting_iterator<unsigned int> index_sequence_begin(0);
+    ::thrust::transform(index_sequence_begin,
                       index_sequence_begin + size,
                       vec.begin(),
                       prg(-1.f, 1.f));

@@ -1101,7 +1101,7 @@ void Selector<TemplateConfig<AMGX_device, t_vecPrec, t_matPrec, t_indPrec> >::cr
     S2.set_block_dimy(A.get_block_dimy());
     cudaCheckError();
     // copy nonzero offsets to the P matrix
-    thrust::copy(nonZeroOffsets.begin(), nonZeroOffsets.end(), S2.row_offsets.begin());
+    ::thrust::copy(nonZeroOffsets.begin(), nonZeroOffsets.end(), S2.row_offsets.begin());
     cudaCheckError();
     {
         const int CTA_SIZE  = 256;
